@@ -1,0 +1,17 @@
+# .github/workflows/lint.yml (optional)
+name: Lint
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/super-linter/slim@v6
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_JAVA: false
