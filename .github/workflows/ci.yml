@@ -1,5 +1,7 @@
 # .github/workflows/ci.yml
 name: CI
+permissions:
+  contents: read
 on:
   pull_request: # runs for ANY PR, regardless of branch name
     types: [opened, synchronize, reopened, ready_for_review]
