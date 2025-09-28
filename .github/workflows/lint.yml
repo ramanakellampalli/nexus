@@ -1,4 +1,3 @@
-# .github/workflows/lint.yml (optional)
 name: Lint
 on:
   pull_request:
@@ -10,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Ensures all branches, including main, are available
       - uses: github/super-linter/slim@v7
         env:
           DEFAULT_BRANCH: main
