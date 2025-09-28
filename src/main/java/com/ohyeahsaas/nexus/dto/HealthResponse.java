@@ -9,8 +9,15 @@ import lombok.Value;
 @Schema(name = "HealthResponse", description = "Service status")
 public class HealthResponse {
 
-    @Schema(example = "UP") String status;
-    @Schema(example = "Nexus") String service;
-    @Schema(example = "2025-09-27T15:42:10-05:00") String time;
-    @Schema(example = "abc-123") String traceId;
+  @Schema(example = "UP")
+  String status;
+
+  @Schema(example = "Nexus")
+  String service;
+
+  @Schema(example = "2025-09-27T15:42:10-05:00")
+  String time;
+
+  @Schema(example = "abc-123")
+  String traceId;
 }
