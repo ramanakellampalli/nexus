@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Pre-commit: format only STAGED files, then re-stage them.
+set -euo pipefail
+
+# Collect staged files (Added, Copied, Modified, Renamed)
+mapfile -d '' STAGED < <(git diff --cached --name-only -z --diff-filter=ACMR)
+
+# Buckets
+sh_files=()
+md_files=()
+yaml_files=()
+java_files=()
+
+for f in "${STAGED[@]}"; do
+  # Skip deleted/submodule etc.
+  [[ -f "$f" ]] || continue
+  case "$f" in
+    *.sh)                sh_files+=("$f") ;;
+    *.md)                md_files+=("$f") ;;
+    *.yml|*.yaml)        yaml_files+=("$f") ;;
+    *.java)              java_files+=("$f") ;;
+  esac
+done
+
+echo "🔧 Pre-commit: formatting staged files…"
+
+# --- Shell: shfmt ---
+if (( ${#sh_files[@]} )); then
+  if command -v shfmt >/dev/null 2>&1; then
+    shfmt -i 4 -ci -w "${sh_files[@]}"
+    git add -- "${sh_files[@]}"
+    echo "  • shfmt fixed ${#sh_files[@]} shell file(s)"
+  else
+    echo "  • shfmt not found (brew install shfmt) — skipped"
+  fi
+fi
+
+# --- Markdown & YAML: Prettier ---
+pretty_targets=("${md_files[@]}" "${yaml_files[@]}")
+if (( ${#pretty_targets[@]} )); then
+  if command -v npx >/dev/null 2>&1; then
+    # silence output; Prettier exits nonzero only on error
+    npx --yes prettier@3.3.3 --write "${pretty_targets[@]}" >/dev/null
+    git add -- "${pretty_targets[@]}"
+    echo "  • prettier fixed ${#pretty_targets[@]} md/yaml file(s)"
+  else
+    echo "  • npx (Node) not found — skipped Prettier"
+  fi
+fi
+
+# --- Java: Spotless (Google Java Format) ---
+if (( ${#java_files[@]} )); then
+  if [[ -x ./mvnw ]]; then
+    # Spotless 2.43.0+ supports filtering via -DspotlessFiles
+    ./mvnw -q -ntp spotless:apply -DspotlessFiles="$(printf '%s,' "${java_files[@]}")"
+    git add -- "${java_files[@]}"
+    echo "  • spotless applied to ${#java_files[@]} Java file(s)"
+  else
+    echo "  • ./mvnw not found — skipping Java format"
+  fi
+fi
+
+echo "✅ Pre-commit formatting done."

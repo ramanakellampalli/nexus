@@ -10,18 +10,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/actuator/**", "/v3/api-docs/**",
-                                "/swagger-ui.html",
-                                "/swagger-ui/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(Customizer.withDefaults());
-        return http.build();
-    }
+  @Bean
+  SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.csrf(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests(
+            auth ->
+                auth.requestMatchers(
+                        "/actuator/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .httpBasic(Customizer.withDefaults());
+    return http.build();
+  }
 }
