@@ -35,10 +35,10 @@ set -euf
 # OS specific support.
 native_path() { printf %s\\n "$1"; }
 case "$(uname)" in
-	CYGWIN* | MINGW*)
-		[ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
-		native_path() { cygpath --path --windows "$1"; }
-		;;
+CYGWIN* | MINGW*)
+	[ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
+	native_path() { cygpath --path --windows "$1"; }
+	;;
 esac
 
 # set JAVACMD and JAVACCMD
@@ -111,29 +111,29 @@ scriptName="$(basename "$0")"
 # parse distributionUrl and optional distributionSha256Sum, requires .mvn/wrapper/maven-wrapper.properties
 while IFS="=" read -r key value; do
 	case "${key-}" in
-		distributionUrl) distributionUrl=$(trim "${value-}") ;;
-		distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
+	distributionUrl) distributionUrl=$(trim "${value-}") ;;
+	distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
 	esac
 done <"$scriptDir/.mvn/wrapper/maven-wrapper.properties"
 [ -n "${distributionUrl-}" ] || die "cannot read distributionUrl property in $scriptDir/.mvn/wrapper/maven-wrapper.properties"
 
 case "${distributionUrl##*/}" in
-	maven-mvnd-*bin.*)
-		MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/
-		case "${PROCESSOR_ARCHITECTURE-}${PROCESSOR_ARCHITEW6432-}:$(uname -a)" in
-			*AMD64:CYGWIN* | *AMD64:MINGW*) distributionPlatform=windows-amd64 ;;
-			:Darwin*x86_64) distributionPlatform=darwin-amd64 ;;
-			:Darwin*arm64) distributionPlatform=darwin-aarch64 ;;
-			:Linux*x86_64*) distributionPlatform=linux-amd64 ;;
-			*)
-				echo "Cannot detect native platform for mvnd on $(uname)-$(uname -m), use pure java version" >&2
-				distributionPlatform=linux-amd64
-				;;
-		esac
-		distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"
+maven-mvnd-*bin.*)
+	MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/
+	case "${PROCESSOR_ARCHITECTURE-}${PROCESSOR_ARCHITEW6432-}:$(uname -a)" in
+	*AMD64:CYGWIN* | *AMD64:MINGW*) distributionPlatform=windows-amd64 ;;
+	:Darwin*x86_64) distributionPlatform=darwin-amd64 ;;
+	:Darwin*arm64) distributionPlatform=darwin-aarch64 ;;
+	:Linux*x86_64*) distributionPlatform=linux-amd64 ;;
+	*)
+		echo "Cannot detect native platform for mvnd on $(uname)-$(uname -m), use pure java version" >&2
+		distributionPlatform=linux-amd64
 		;;
-	maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
-	*) MVN_CMD="mvn${scriptName#mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
+	esac
+	distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"
+	;;
+maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
+*) MVN_CMD="mvn${scriptName#mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
 esac
 
 # apply MVNW_REPOURL and calculate MAVEN_HOME
@@ -156,8 +156,8 @@ if [ -d "$MAVEN_HOME" ]; then
 fi
 
 case "${distributionUrl-}" in
-	*?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
-	*) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
+*?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
+*) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
 esac
 
 # prepare tmp dir
@@ -187,8 +187,8 @@ __MVNW_QUIET_WGET=--quiet __MVNW_QUIET_CURL=--silent __MVNW_QUIET_UNZIP=-q __MVN
 
 # normalize http auth
 case "${MVNW_PASSWORD:+has-password}" in
-	'') MVNW_USERNAME='' MVNW_PASSWORD='' ;;
-	has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+'') MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;
 esac
 
 if [ -z "${MVNW_USERNAME-}" ] && command -v wget >/dev/null; then

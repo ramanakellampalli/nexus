@@ -1,6 +1,7 @@
 # Nexus — API Service
 
-Central hub for routing, discovery, and governance of APIs. Built with Spring Boot (Java 17).
+Central hub for routing, discovery, and governance of APIs. Built with Spring Boot
+(Java 17).
 
 ## Features
 
@@ -27,9 +28,9 @@ Central hub for routing, discovery, and governance of APIs. Built with Spring Bo
 
 ### Open
 
-- **API ping:** http://localhost:8080/api/v1/ping
-- **Swagger UI:** http://localhost:8080/swagger-ui.html
-- **Actuator index:** http://localhost:8080/actuator
+- **API ping:** <http://localhost:8080/api/v1/ping>
+- **Swagger UI:** <http://localhost:8080/swagger-ui.html>
+- **Actuator index:** <http://localhost:8080/actuator>
 
 ---
 
@@ -90,13 +91,17 @@ Useful endpoints:
 
 ---
 
-# PR Checks to Add (Info Only)
+## PR Checks to Add (Info Only)
 
-- **Build & Test (CI):** Compile and run unit tests on every PR and non-main push.
-- **CodeQL Code Scanning:** Static analysis to flag security and vulnerability issues on PRs.
+- **Build & Test (CI):** Compile and run unit tests on every PR and non-main
+  push.
+- **CodeQL Code Scanning:** Static analysis to flag security and vulnerability
+  issues on PRs.
 - **Dependabot:** Weekly PRs to update Maven dependencies and GitHub Actions.
-- **Repository Linting (optional):** Lint Markdown/YAML/JSON to maintain repository hygiene.
-- **Coverage Gate (optional):** Enforce a minimum test coverage threshold before merge.
+- **Repository Linting (optional):** Lint Markdown/YAML/JSON to maintain
+  repository hygiene.
+- **Coverage Gate (optional):** Enforce a minimum test coverage threshold
+  before merge.
 - **Branch Protection (main):**
   - Require pull request before merging
   - Require status checks (CI, CodeQL, Lint) to pass
@@ -104,8 +109,10 @@ Useful endpoints:
   - Require review from Code Owners
   - Require conversation resolution
   - (Optional) Restrict who can push; require linear history
-- **Secret Scanning (public repositories):** Enable in “Code security & analysis” for automatic secret detection.
-- **Auto-merge (optional):** Allow auto-merge of Dependabot PRs after checks pass.
+- **Secret Scanning (public repositories):** Enable in “Code security & analysis”
+  for automatic secret detection.
+- **Auto-merge (optional):** Allow auto-merge of Dependabot PRs after checks
+  pass.
 
 ## License
 
