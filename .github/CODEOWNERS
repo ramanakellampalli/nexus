@@ -1,0 +1,24 @@
+# CODEOWNERS
+# Put this file at .github/CODEOWNERS (preferred) or at the repo root.
+# Last matching rule wins.
+
+# Default owner for everything
+* @ramanakellampalli
+
+# Application code
+/src/main/java/ @ramanakellampalli
+/src/main/resources/ @ramanakellampalli
+
+# Tests
+/src/test/java/ @ramanakellampalli
+
+# CI/CD
+/.github/workflows/** @ramanakellampalli
+
+# Docs
+/README.md @ramanakellampalli
+/docs/** @ramanakellampalli
+
+# Ignore build outputs (no owners)
+/target/**
+/build/**
