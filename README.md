@@ -86,7 +86,7 @@ Useful endpoints:
 ## Notes
 
 - Version APIs under `/api/v1/...`
-- Keep secrets out of the repo; use env vars or Spring profiles.
+- Keep secrets out of the repository; use env vars or Spring profiles.
 
 ---
 
@@ -95,7 +95,7 @@ Useful endpoints:
 - **Build & Test (CI):** Compile and run unit tests on every PR and non-main push.
 - **CodeQL Code Scanning:** Static analysis to flag security and vulnerability issues on PRs.
 - **Dependabot:** Weekly PRs to update Maven dependencies and GitHub Actions.
-- **Repo Linting (optional):** Lint Markdown/YAML/JSON to maintain repo hygiene.
+- **Repository Linting (optional):** Lint Markdown/YAML/JSON to maintain repository hygiene.
 - **Coverage Gate (optional):** Enforce a minimum test coverage threshold before merge.
 - **Branch Protection (main):**
   - Require pull request before merging
@@ -104,7 +104,7 @@ Useful endpoints:
   - Require review from Code Owners
   - Require conversation resolution
   - (Optional) Restrict who can push; require linear history
-- **Secret Scanning (public repos):** Enable in “Code security & analysis” for automatic secret detection.
+- **Secret Scanning (public repositories):** Enable in “Code security & analysis” for automatic secret detection.
 - **Auto-merge (optional):** Allow auto-merge of Dependabot PRs after checks pass.
 
 ## License

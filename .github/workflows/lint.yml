@@ -2,17 +2,22 @@ name: Lint
 on:
   pull_request:
   push:
-    branches-ignore:
-      - main
+    branches-ignore: [main]
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 0 # Ensures all branches, including main, are available
+          fetch-depth: 0
       - uses: github/super-linter/slim@v7
         env:
-          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main
+          # Lint entire repo on PRs (not just changed files)
+          VALIDATE_ALL_CODEBASE: true
+          # Keep Java off unless you want Google style on every file
           VALIDATE_JAVA: false
+          # (Optional) mute wording checks if they’re noisy:
+          # VALIDATE_NATURAL_LANGUAGE: false
