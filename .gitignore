@@ -1,0 +1,86 @@
+# -----------------------
+# Build outputs
+# -----------------------
+target/
+build/
+out/
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Logs & runtime
+*.log
+logs/
+hs_err_pid*
+replay_pid*
+*.hprof
+
+# Spring Boot dev files
+.spring-*
+tmp/
+*.pid
+
+# -----------------------
+# IDEs
+# -----------------------
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# VS Code
+.vscode/
+
+# STS / Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# -----------------------
+# OS files
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# Tools & wrappers
+# -----------------------
+# Maven
+# KEEP the wrapper jar tracked (important)
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/timing.properties
+
+# Gradle (if present)
+.gradle/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar  # keep wrapper JAR tracked
+gradle-app.setting
+
+# -----------------------
+# Env / secrets (adjust as needed)
+# -----------------------
+.env
+.env.*
+*.keystore
+*.jks
+*.p12
+
+# -----------------------
+# Project scaffolding (optional)
+# -----------------------
+# If you don’t want the Initializr file, uncomment the line below:
+# HELP.md
