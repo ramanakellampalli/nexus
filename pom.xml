@@ -113,6 +113,23 @@
                     </execution>
                 </executions>
             </plugin>
+			<plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>2.14.1</version>
+                <configuration>
+                    <schemaVersion>v2</schemaVersion>
+                    <resourceGroup>your-rg</resourceGroup>  <!-- We'll set this -->
+                    <appName>your-app-name</appName>         <!-- We'll set this -->
+                    <region>centralindia</region>            <!-- India Central -->
+                    <pricingTier>F1</pricingTier>            <!-- Free tier -->
+                    <runtime>
+                        <os>Linux</os>
+                        <javaVersion>Java 21</javaVersion>     <!-- Or Java 17/11 -->
+                        <webContainer>Java SE</webContainer>   <!-- For embedded Spring Boot -->
+                    </runtime>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
