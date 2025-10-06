@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -13,10 +14,10 @@ public class SecurityConfig {
     @Bean @Order(1)
     SecurityFilterChain h2(HttpSecurity http) throws Exception {
         http
-                .securityMatcher(PathRequest.toH2Console())                 // /h2-console/**
+                .securityMatcher(PathRequest.toH2Console())
                 .authorizeHttpRequests(a -> a.anyRequest().permitAll())
                 .csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()))
-                .headers(h -> h.frameOptions(f -> f.sameOrigin()));
+                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         return http.build();
     }
 
